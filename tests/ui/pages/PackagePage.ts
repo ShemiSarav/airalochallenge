@@ -6,7 +6,8 @@ export class PackagePage {
   constructor(page: Page) {
     this.page = page;
   }
-//Verify the package contents
+// Verifies the package details for Moshi Moshi 1GB / 7 Days / €4.50
+
   async verifyPackageDetails() {
     await expect(this.page.locator('[data-testid="sim-detail-operator-title"]')).toContainText('Moshi Moshi');
     await expect(this.page.locator('[data-testid="package-detail"] [data-testid="COVERAGE-value"]')).toHaveText(/^\s*Japan\s*$/);

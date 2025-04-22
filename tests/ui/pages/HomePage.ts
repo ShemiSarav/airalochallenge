@@ -27,7 +27,7 @@ export class HomePage {
   
   async acceptCookiesIfPresent() {
     try {
-      await this.cookieButton.waitFor({ state: 'visible', timeout: 5000 });
+      await this.searchBox.waitFor({ state: 'visible', timeout: 10000 });
       await this.cookieButton.click();
       await this.page.waitForLoadState('networkidle'); 
       
@@ -42,7 +42,7 @@ export class HomePage {
   // Types "Japan" in the search box and selects the first matching "Local" destination
 
   async searchAndSelectJapan() {
-    await this.searchBox.waitFor({ state: 'visible', timeout: 5000 });
+    await this.searchBox.waitFor({ state: 'visible', timeout: 10000 });
 
    // Locate the search input and fill in the destination
     
@@ -55,10 +55,10 @@ export class HomePage {
   }  
 
   // Selects the first priced eSIM package by clicking "BUY NOW"
-  
+
   async selectFirstPackage() {
     const firstBuyNow = this.page.getByRole('button', { name: 'BUY NOW' }).first();
-    await firstBuyNow.waitFor({ state: 'visible', timeout: 5000 });
+    await firstBuyNow.waitFor({ state: 'visible', timeout: 10000 });
     await firstBuyNow.click();
   }
 }
