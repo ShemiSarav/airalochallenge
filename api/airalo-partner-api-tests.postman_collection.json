@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "66343523-65b5-4633-a1be-4bd205b3ecc4",
+		"name": "Airalo Partner API",
+		"description": "Requests to Airalo Partner Sandbox API for automation testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44241962"
+	},
+	"item": [
+		{
+			"name": "Get OAuth Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const json = pm.response.json();\r",
+							"pm.environment.set(\"access_token\", json.data.access_token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "client_id",
+							"value": "7e29e2facf83359855f746fc490443e6",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "e5NNajm6jNAzrWsKoAdr41WfDiMeS1l6IcGdhmbb",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://sandbox-partners-api.airalo.com/v2/token",
+					"protocol": "https",
+					"host": [
+						"sandbox-partners-api",
+						"airalo",
+						"com"
+					],
+					"path": [
+						"v2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sandbox-partners-api.airalo.com/v1/orders",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "const res = pm.response.json();\r\n\r\n// Log the full server message\r\nconsole.log(\"🧾 Server response:\", res);\r\n\r\n// Check for expected failure reason\r\npm.test(\"eSIM out-of-stock gracefully handled\", () => {\r\n    pm.expect(pm.response.code).to.eql(422);\r\n    pm.expect(res.reason).to.include(\"out of stock\");\r\n});\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sandbox-partners-api.airalo.com/v1/orders",
+					"protocol": "https",
+					"host": [
+						"sandbox-partners-api",
+						"airalo",
+						"com"
+					],
+					"path": [
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
