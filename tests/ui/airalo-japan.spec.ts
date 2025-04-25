@@ -10,23 +10,21 @@ test('Airalo Japan eSIM package details are correct', async ({ page }) => {
   const home = new HomePage(page);
   const popup = new PackagePage(page);
 
-  console.log('➡️ Opening homepage');
-  // Step 1: Navigate to Airalo's homepage
-  await home.goto();
+  await test.step('Open Airalo homepage', async () => {
+    await home.goto();
+    await home.acceptCookiesIfPresent();
+  })
 
-  console.log('➡️ Handling cookies');
-  // Step 2: Accept cookies if popup is shown
-  await home.acceptCookiesIfPresent();
+  await test.step('Select Japan', async () => {
+    await home.searchAndSelectJapan();
+  })
 
-  console.log('➡️ Searching for Japan');
-  // Step 3: Search for "Japan" and select the corresponding "Local" destination
-  await home.searchAndSelectJapan();
+  await test.step('Select First Package', async () => {
+    await home.selectFirstPackage();
+  })
 
-  console.log('➡️ Selecting first package');
-  // Step 4: Select the first priced eSIM package available
-  await home.selectFirstPackage();
+  await test.step('Verify Package Details', async () => {
+      await popup.verifyPackageDetails();
+  })
 
-  console.log('➡️ Verifying popup');
-  // Step 5: Verify the contents of the popup modal match expected values
-  await popup.verifyPackageDetails();
 });
