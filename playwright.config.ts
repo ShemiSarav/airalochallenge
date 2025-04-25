@@ -3,7 +3,7 @@ import { defineConfig } from '@playwright/test'
 const MAX_RETRY = 2 // Set to 1 to retry failed tests once.
 
 export default defineConfig({
-  testDir: './tests/e2e',
+  testDir: './tests/ui',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -34,6 +34,8 @@ export default defineConfig({
     launchOptions: {
       args: ['--disable-web-security'],
     },
+
+    baseURL: 'https://www.airalo.com',
 
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 30000,
